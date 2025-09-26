@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Profile Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #45097e 0%, #023d05 100%);
+            padding: 20px;
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 380px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+                        url(imgs/Wanjake.jfif);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .content {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 1.6rem;
+        }
+        
+        .title {
+            color: #6a11cb;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        
+        .description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        
+        .section-title {
+            text-align: left;
+            color: #444;
+            margin: 15px 0 10px;
+            font-size: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 5px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        
+        .tech-item {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+        
+        .tech-item .tooltip {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        
+        .tech-item:hover .tooltip {
+            opacity: 1;
+        }
+        
+        .tech-icon {
+            font-size: 1.5rem;
+        }
+        
+        .tech-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        
+        .contact-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 8px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            border: none;
+            font-size: 0.8rem;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        .email {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+        
+        .whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+        
+        .linkedin {
+            background: linear-gradient(135deg, #0077B5, #005885);
+        }
+        
+        .github {
+            background: linear-gradient(135deg, #333, #000);
+        }
+        
+        .twitter {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+        }
+        
+        .portfolio {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+        }
+        
+        .coffee-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #FFE8CC, #FFD8A9);
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .coffee-title {
+            color: #8B4513;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .coffee-btn {
+            background: linear-gradient(135deg, #FFA500, #FF8C00);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 auto 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .coffee-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mpesa-number {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+            color: #333;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px dashed #8B4513;
+        }
+        
+        .copy-btn {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-left: 5px;
+        }
+        
+        .copy-btn:hover {
+            background: #A0522D;
+        }
+        
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                max-width: 340px;
+            }
+            
+            .contact-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="profile-image"></div>
+        
+        <div class="content">
+           <h1>John Wanjake Kibe</h1>
+            <p class="title">Full Stack JavaScript Developer & IT Specialist</p>
+            <p class="description">I create beautiful, functional web applications with clean code and user-centered design. I'm aiming at helping businesses bring their digital ideas to life.</p>
+            
+            <h3 class="section-title">Tech Stack</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <i class="fab fa-js-square tech-icon" style="color: #F7DF1E;"></i>
+                    <span class="tooltip">JavaScript</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-react tech-icon" style="color: #61DAFB;"></i>
+                    <span class="tooltip">React</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-node-js tech-icon" style="color: #339933;"></i>
+                    <span class="tooltip">Node.js</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-python tech-icon" style="color: #3776AB;"></i>
+                    <span class="tooltip">Python</span>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg" alt="MongoDB" class="tech-logo">
+                    <span class="tooltip">MongoDB</span>
+                </div>
+                <!-- <div class="tech-item">
+                    <img src="https://cdn.worldvectorlogo.com/logos/figma-1.svg" alt="Figma" class="tech-logo">
+                    <span class="tooltip">Figma</span>
+                </div> -->
+                <div class="tech-item">
+                    <i class="fab fa-html5 tech-icon" style="color: #E34F26;"></i>
+                    <span class="tooltip">HTML5</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-css3-alt tech-icon" style="color: #1572B6;"></i>
+                    <span class="tooltip">CSS3</span>
+                </div>
+            </div>
+            
+            <h3 class="section-title">Contact Me</h3>
+            <div class="contact-buttons">
+               <a href="mailto:wanjakejohn63@gmail.com?subject=Project%20Inquiry&body=Hello%20Alex%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20you." class="contact-btn email">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://wa.me/0794945137?text=Hello%20Alex%2C%20I%20saw%20your%20profile%20and%20would%20like%20to%20discuss%20a%20project." class="contact-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://ke.linkedin.com/in/john-wanjake-548834351" class="contact-btn linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/WanjakeKibe/WanjakeKibe" class="contact-btn github">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://x.com/the_wanjake" class="contact-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </a>
+                <!-- Coming soon haha -->
+                <!-- <a href="https://alexjohnson.dev" class="contact-btn portfolio">
+                    <i class="fas fa-globe"></i>
+                    <span>Portfolio</span>
+                </a> -->
+            </div>
+            
+            <div class="coffee-section">
+                <h3 class="coffee-title">
+                    <i class="fas fa-coffee"></i>
+                    Buy Me a Coffee
+                </h3>
+                <button class="coffee-btn" id="coffeeBtn">
+                    <i class="fas fa-mug-hot"></i>
+                    Support My Work
+                </button>
+                <p style="font-size: 0.85rem; color: #8B4513; margin-bottom: 8px;">Send to M-Pesa:</p>
+                <div>
+                    <span class="mpesa-number" id="mpesaNumber">0794945137</span>
+                    <button class="copy-btn" id="copyBtn">Copy</button>
+                </div>
+                <p style="font-size: 0.75rem; color: #A0522D; margin-top: 8px;">Thank you for your support! ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="copy-notification" id="copyNotification">M-Pesa number copied to clipboard!</div>
+
+    <script>
+        // Simple animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const card = document.querySelector('.card');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Copy M-Pesa number functionality
+            const copyBtn = document.getElementById('copyBtn');
+            const mpesaNumber = document.getElementById('mpesaNumber');
+            const copyNotification = document.getElementById('copyNotification');
+            const coffeeBtn = document.getElementById('coffeeBtn');
+            
+            copyBtn.addEventListener('click', function() {
+                // Copy the M-Pesa number to clipboard
+                const textArea = document.createElement('textarea');
+                textArea.value = mpesaNumber.textContent.replace(/\s/g, '');
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Show notification
+                copyNotification.style.opacity = '1';
+                setTimeout(() => {
+                    copyNotification.style.opacity = '0';
+                }, 2000);
+            });
+            
+            // Coffee button animation
+            coffeeBtn.addEventListener('click', function() {
+                // Animate the button
+                coffeeBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    coffeeBtn.style.transform = 'scale(1)';
+                }, 150);
+                
+                // Also copy the M-Pesa number when clicking the main button
+                const textArea = document.createElement('textarea');
+                textArea.value = mpesaNumber.textContent.replace(/\s/g, '');
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Show notification
+                copyNotification.textContent = "M-Pesa number copied to clipboard!";
+                copyNotification.style.opacity = '1';
+                setTimeout(() => {
+                    copyNotification.style.opacity = '0';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
